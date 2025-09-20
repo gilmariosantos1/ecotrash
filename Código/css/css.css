@@ -1,0 +1,623 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: url('../img/fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+
+/* Navbar */
+nav {
+  background: #6CA632;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Centralizar somente os links */
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center; /* <-- centraliza os itens dentro do espaço do UL */
+  flex: 1; /* <-- ocupa o espaço sobrando para permitir centralização */
+  gap: 27px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1b5e20;
+}
+
+
+/* Slogan */
+.slogan {
+  position: absolute;
+  top: 120px;
+  left: 50px;
+  max-width: 280px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #f57c00;
+  line-height: 1.2;
+}
+
+/* Icon */
+
+.icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  color: #2e7d32;
+}
+
+/* Painel */
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  max-width: 480px;
+  margin: 180px auto;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel h2 {
+  font-size: 24px;
+  color: #2e7d32;
+  margin-bottom: 25px;
+}
+
+.panel .options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.panel-btn {
+  flex: 1 1 120px;
+  text-decoration: none;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #a5d6a7;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.panel-btn:hover {
+  background: #c8e6c9;
+  border-color: #66bb6a;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slogan {
+    position: static;
+    margin: 20px;
+    font-size: 24px;
+  }
+  .panel {
+    margin: 100px 20px;
+    padding: 25px;
+  }
+}
+
+/*//////////// CSS página sobre/////////////*/
+/* Seção explicação */
+.intro {
+  background: #fff;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.intro h2 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  margin-bottom: 25px;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* Benefícios */
+.beneficios {
+  background: #e8f5e9;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.beneficios h2 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.beneficios ul {
+  list-style: disc inside;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Solicitar */
+.solicitar {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.solicitar h2 {
+  color: #f57c00;
+  margin-bottom: 15px;
+}
+
+.solicitar ol {
+  line-height: 1.6;
+  color: #333;
+}
+
+.solicitar a {
+  color: #2e7d32;
+  text-decoration: underline;
+}
+/*//////////////////////////////////////*/
+
+
+/*///////////////CSS CONTATO////////////*/
+
+/* Cabeçalho contato */
+.contact-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  color: #fff;
+}
+
+.contact-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Mensagem em balão */
+.mensagem {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.mensagem::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 40px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+.mensagem h3 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.mensagem p {
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* Bloco de Contatos */
+.contatos {
+  max-width: 500px;
+  margin: 40px auto 60px;
+  padding: 30px;
+  background: #e8f5e9;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.contatos h2 {
+  margin-bottom: 20px;
+  color: #2e7d32;
+  font-size: 24px;
+}
+
+.contatos ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contatos ul li {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.contatos i {
+  color: #2e7d32;
+  font-size: 22px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #6CA632;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .mensagem, .contatos {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .contact-header h1 {
+    font-size: 22px;
+  }
+
+  .contatos ul li {
+    font-size: 16px;
+  }
+}
+
+/*///////////////CSS CONTATO////////////*/
+
+
+
+/*//////////////// CSS CADASTRO ///////////*/
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: url('../img/fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+/* Navbar */
+nav {
+  background: #6CA632;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  gap: 27px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1b5e20;
+}
+
+/* Slogan */
+.slogan {
+  position: absolute;
+  top: 120px;
+  left: 50px;
+  max-width: 280px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #f57c00;
+  line-height: 1.2;
+}
+
+/* Formulário */
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  max-width: 600px;
+  margin: 200px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #6CA632;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.radio-group label {
+  margin: 0;
+}
+
+/* Botões */
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-back {
+  background: #ccc;
+  color: #333;
+}
+
+.btn-back:hover {
+  background: #999;
+}
+
+.btn-submit {
+  background: #43a047;
+  color: #fff;
+}
+
+.btn-submit:hover {
+  background: #2e7d32;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .slogan {
+    position: static;
+    margin: 20px;
+    font-size: 24px;
+  }
+  .form-container {
+    margin: 100px 20px;
+    padding: 20px;
+  }
+}
+
+
+/*//////////////// CSS CADASTRO ///////////*/
+.form-container {
+  max-width: 700px;
+  margin: 100px auto 40px;
+  padding: 30px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2e7d32;
+}
+
+form fieldset {
+  border: 1px solid #a5d6a7;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+form legend {
+  font-weight: bold;
+  color: #388e3c;
+  padding: 0 8px;
+}
+
+form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px 0;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.btn-aceitar {
+  background: #43a047;
+  color: #fff;
+}
+
+.btn-back,
+.btn-submit {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.btn-back {
+  background: #f57c00;
+  color: #fff;
+}
+
+.btn-submit {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.btn-back:hover {
+  background: #ef6c00;
+}
+
+.btn-submit:hover {
+  background: #388e3c;
+}
+
+.panel-municipio {
+  background: #fffbea;
+  max-width: 420px;
+  margin: 160px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel-municipio h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: #2e7d32;
+}
+
+.panel-municipio p {
+  margin: 8px 0;
+  color: #444;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .form-container {
+    margin: 60px 20px;
+    padding: 20px;
+  }
+
+  .btns {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+/*////////////////////////////////*/
+
