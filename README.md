@@ -12,7 +12,7 @@
 7. Equipe
 
 ## 1. Introdução 🔥
-O projeto **EcoTrash** busca oferecer uma plataforma acessível onde as pessoas possam solicitar a coleta de lixo em parceria com os municípios. O sistema visa facilitar a comunicação entre os cidadãos e os órgãos responsáveis pela limpeza pública, utilizando uma linguagem clara e de fácil acesso.
+O projeto **EcoTrash** busca oferecer uma plataforma acessível onde as pessoas possam solicitar a coleta de lixo e entulho em parceria com os municípios. O sistema visa facilitar a comunicação entre os cidadãos e os órgãos responsáveis pela limpeza pública, utilizando uma linguagem clara e de fácil acesso.
 
 ## 2. Problema ⚠️
 Atualmente, muitas áreas sofrem com o descarte irregular e a ausência de coleta de resíduos. Esse problema gera impactos ambientais severos e afeta diretamente a vida e a economia local. 
