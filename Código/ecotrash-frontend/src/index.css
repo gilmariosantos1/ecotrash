@@ -1,0 +1,307 @@
+/* ==========================================================================
+   RESET & GLOBAL
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  /* No React/Vite, a pasta 'img' deve ficar dentro da pasta 'public' */
+  background: url('/img/fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+/* ==========================================================================
+   NAVBAR & SLOGAN
+   ========================================================================== */
+nav {
+  background: #6CA632;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  gap: 27px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1b5e20;
+}
+
+.slogan {
+  position: absolute;
+  top: 120px;
+  left: 50px;
+  max-width: 280px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #f57c00;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   BOTÕES E PAINÉIS
+   ========================================================================== */
+.icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  color: #2e7d32;
+}
+
+.btn, .btn-submit, .btn-back, .panel-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px 0;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-voltar, .btn-back { background: #f57c00; color: #ffffff; }
+.btn-voltar:hover, .btn-back:hover { background: #ef6c00; }
+
+.btn-aceitar, .btn-submit { background: #43a047; color: #fff; }
+.btn-aceitar:hover, .btn-submit:hover { background: #2e7d32; }
+
+.btn-recusar { background: #e53935; color: #fff; }
+.btn-recusar:hover { background: #b71c1c; }
+
+.panel-btn {
+  flex: 1 1 120px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #a5d6a7;
+}
+
+.panel-btn:hover {
+  background: #c8e6c9;
+  border-color: #66bb6a;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  max-width: 480px;
+  margin: 180px auto;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel h2 {
+  font-size: 24px;
+  color: #2e7d32;
+  margin-bottom: 25px;
+}
+
+.panel .options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.panel-municipio, .panel-status {
+  background: #fffbea;
+  max-width: 420px;
+  margin: 160px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel-municipio h2, .panel-status h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: #2e7d32;
+}
+
+.panel-municipio p, .panel-status p {
+  margin: 8px 0;
+  color: #444;
+}
+
+/* ==========================================================================
+   FORMULÁRIOS
+   ========================================================================== */
+.form-container {
+  max-width: 700px;
+  margin: 160px auto 40px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2e7d32;
+}
+
+fieldset {
+  border: 1px solid #a5d6a7;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+legend {
+  font-weight: bold;
+  color: #388e3c;
+  padding: 0 8px;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #6CA632;
+  box-shadow: 0 0 4px rgba(108, 166, 50, 0.5);
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.panel-status form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* ==========================================================================
+   LISTA DE REQUERIMENTOS (Status)
+   ========================================================================== */
+.lista-requerimentos {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.lista-requerimentos li {
+  margin: 10px 0;
+}
+
+.lista-requerimentos a {
+  display: block;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.lista-requerimentos a:hover {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+/* ==========================================================================
+   PÁGINAS: SOBRE O PROJETO & CONTATO
+   ========================================================================== */
+.intro, .beneficios, .solicitar, .mensagem, .contatos {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 35px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.intro h2, .beneficios h2, .solicitar h2, .contatos h2, .mensagem h3 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.contact-header h1 {
+  text-align: center;
+  color: #ffffff;
+  margin-top: 50px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  font-size: 36px;
+}
+
+.intro p, .mensagem p, .beneficios li, .solicitar li {
+  line-height: 1.6;
+  font-size: 16px;
+  color: #444;
+}
+
+.beneficios ul, .solicitar ol {
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.beneficios li, .solicitar li {
+  margin-bottom: 10px;
+}
+
+.contatos ul {
+  list-style: none;
+}
+
+.contatos ul li {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
