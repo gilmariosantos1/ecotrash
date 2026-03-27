@@ -9,6 +9,7 @@ import Confirmacao from './pages/Confirmacao.jsx';
 import PainelMunicipioLogin from './pages/PainelMunicipioLogin.jsx';
 import PainelMunicipioLista from './pages/PainelMunicipioLista.jsx';
 import PainelMunicipioDetalhes from './pages/PainelMunicipioDetalhes.jsx';
+import RecuperarSenha from './pages/RecuperarSenha.jsx'; // 👈 AQUI: Importamos a nova página
 
 import StatusLogin from './pages/StatusLogin.jsx';
 import StatusLista from './pages/StatusLista.jsx';
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/confirmacao" element={<Confirmacao />} />
 
         <Route path="/municipio/login" element={<PainelMunicipioLogin />} />
+        <Route path="/municipio/recuperar-senha" element={<RecuperarSenha />} /> {/* 👈 AQUI: Adicionamos a rota */}
         <Route path="/municipio/lista" element={<PainelMunicipioLista />} />
         <Route path="/municipio/detalhes/:id" element={<PainelMunicipioDetalhes />} />
 
