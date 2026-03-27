@@ -13,6 +13,7 @@ import PainelMunicipioDetalhes from './pages/PainelMunicipioDetalhes.jsx';
 import StatusLogin from './pages/StatusLogin.jsx';
 import StatusLista from './pages/StatusLista.jsx';
 import StatusDetalhes from './pages/StatusDetalhes.jsx';
+import CadastroMunicipio from './pages/CadastroMunicipio.jsx';
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/status/login" element={<StatusLogin />} />
         <Route path="/status/lista" element={<StatusLista />} />
         <Route path="/status/detalhes/:id" element={<StatusDetalhes />} />
+        <Route path="/municipio/cadastro" element={<CadastroMunicipio />} />
       </Routes>
     </>
   );
