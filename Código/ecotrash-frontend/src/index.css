@@ -305,3 +305,86 @@ input:focus {
   color: #333;
   font-weight: 500;
 }
+/* ==========================================================================
+   ESTILOS DA TABELA DE GESTÃO
+   ========================================================================== */
+.panel-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  max-width: 1200px;
+  margin: 160px auto 40px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel-table-container h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.tabela-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.tabela-pedidos th {
+  background-color: #6CA632;
+  color: white;
+  padding: 12px;
+  font-weight: 600;
+}
+
+.tabela-pedidos td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.tabela-pedidos tr:hover {
+  background-color: #f1f8e9;
+}
+
+.badge-lixo {
+  background-color: #f57c00;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.botoes-acao {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-aceitar-sm, .btn-confirmar-sm {
+  background: #43a047; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;
+}
+.btn-recusar-sm {
+  background: #e53935; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;
+}
+.btn-aceitar-sm:hover, .btn-confirmar-sm:hover { background: #2e7d32; }
+.btn-recusar-sm:hover { background: #b71c1c; }
+
+.data-agendamento {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.data-agendamento input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.status-agendado { color: #2e7d32; font-weight: bold; }
+.status-recusado { color: #d32f2f; font-weight: bold; }
