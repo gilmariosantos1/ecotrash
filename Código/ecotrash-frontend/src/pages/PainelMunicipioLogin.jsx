@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function PainelMunicipioLogin() {
@@ -11,13 +11,9 @@ export default function PainelMunicipioLogin() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/municipios/login', { email, senha });
-      alert(response.data.mensagem);
-      
-      // A MÁGICA: Manda a cidade e o estado "escondidos" na bagagem para a próxima página!
       navigate('/municipio/lista', { 
         state: { cidade: response.data.cidade, estado: response.data.estado } 
       });
-      
     } catch (error) {
       alert(error.response?.data?.erro || "Erro ao conectar com o servidor.");
     }
@@ -35,8 +31,15 @@ export default function PainelMunicipioLogin() {
           <label htmlFor="senha" style={{ textAlign: 'left' }}>Senha:</label>
           <input type="password" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Digite sua senha" required />
 
-          <div className="btn-group">
-            <button type="button" className="btn btn-voltar" onClick={() => navigate(-1)}>Voltar</button>
+          {/* 👇 OLHA O LINK DE ESQUECI A SENHA AQUI 👇 */}
+          <div style={{ textAlign: 'right', marginTop: '-5px' }}>
+            <Link to="/municipio/recuperar-senha" style={{ fontSize: '14px', color: '#2e7d32', textDecoration: 'none', fontWeight: 'bold' }}>
+              Esqueci minha senha
+            </Link>
+          </div>
+
+          <div className="btn-group" style={{ marginTop: '10px' }}>
+            <button type="button" className="btn btn-voltar" onClick={() => navigate('/')}>Voltar</button>
             <button type="submit" className="btn btn-aceitar">Entrar</button>
           </div>
         </form>

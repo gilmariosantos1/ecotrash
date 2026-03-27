@@ -29,7 +29,7 @@ export default function Contato() {
   return (
     <>
       <header className="contact-header">
-        <h1>Entre em contacto conosco</h1>
+        <h1>Entre em contacto connosco</h1>
       </header>
 
       <main>
