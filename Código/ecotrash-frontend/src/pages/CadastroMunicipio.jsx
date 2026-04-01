@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import municipioService from '../services/municipioService';
 
 export default function CadastroMunicipio() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function CadastroMunicipio() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/municipios', formData);
+      await municipioService.criar(formData);
       alert("Município cadastrado com sucesso! Já pode fazer o login.");
       navigate('/municipio/login'); 
     } catch (error) {

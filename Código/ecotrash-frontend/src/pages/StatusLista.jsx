@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import coletaService from '../services/coletaService';
 
 export default function StatusLista() {
   const navigate = useNavigate();
   const location = useLocation();
   const [meusPedidos, setMeusPedidos] = useState([]);
   
-  // Recebe o CPF digitado no ecrã anterior
   const cpfBusca = location.state?.cpfBusca || '';
 
   useEffect(() => {
     if (cpfBusca) {
-      axios.get(`http://localhost:5000/api/coletas/cidadao/${cpfBusca}`)
+      coletaService.buscarPorCpf(cpfBusca)
         .then(response => setMeusPedidos(response.data))
         .catch(() => alert('Erro ao procurar os pedidos.'));
     }
