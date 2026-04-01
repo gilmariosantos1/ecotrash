@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import municipioService from '../services/municipioService';
 
 export default function RecuperarSenha() {
   const navigate = useNavigate();
@@ -11,10 +11,9 @@ export default function RecuperarSenha() {
     e.preventDefault();
     setCarregando(true);
     try {
-      // Chama a nossa rota nova
-      const response = await axios.post('http://localhost:5000/api/municipios/recuperar-senha', { email });
+      const response = await municipioService.recuperarSenha(email);
       alert(response.data.mensagem); 
-      navigate('/municipio/login'); // Volta pro login para usar a senha nova
+      navigate('/municipio/login');
     } catch (error) {
       alert(error.response?.data?.erro || "Erro ao tentar recuperar a senha.");
     } finally {

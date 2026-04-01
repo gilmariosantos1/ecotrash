@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import mensagemService from '../services/mensagemService';
 
 export default function Contato() {
   const [formData, setFormData] = useState({
@@ -12,14 +12,9 @@ export default function Contato() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
-      // Envia os dados para a nova rota do nosso back-end
-      await axios.post('http://localhost:5000/api/mensagens', formData);
-      
+      await mensagemService.criar(formData);
       alert(`Obrigado pelo contacto, ${formData.nome}! A sua mensagem sobre "${formData.assunto}" foi enviada com sucesso para a nossa equipa.`);
-      
-      // Limpa o formulário após o envio bem-sucedido
       setFormData({ nome: '', email: '', assunto: '', mensagem: '' });
     } catch (error) {
       alert("Erro ao enviar a mensagem. Verifique se o servidor está ligado.");
@@ -33,7 +28,6 @@ export default function Contato() {
       </header>
 
       <main>
-        {/* Aqui é a caixa branca. Colocamos os contatos DENTRO dela agora! */}
         <section className="mensagem">
           <h3>🌱 EcoTrash</h3>
           <p>
@@ -44,10 +38,8 @@ export default function Contato() {
             Juntos podemos cuidar da Terra e trazer mais qualidade de vida à população.
           </p>
           
-          {/* Linha divisória suave para separar o texto dos contatos */}
           <hr style={{ margin: '25px 0', border: 'none', borderTop: '1px solid #ddd' }} />
 
-          {/* Contatos organizados e centralizados dentro do painel branco */}
           <ul style={{ display: 'flex', justifyContent: 'center', gap: '30px', flexWrap: 'wrap', fontWeight: 'bold', listStyle: 'none', padding: 0, margin: 0, color: '#333' }}>
             <li>✉️ contacto@ecotrash.com.br</li>
             <li>📞 (79) 9999-9999</li>

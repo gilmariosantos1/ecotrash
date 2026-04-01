@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import coletaService from '../services/coletaService';
 
 export default function Cadastro() {
   const navigate = useNavigate();
@@ -10,11 +11,9 @@ export default function Cadastro() {
     estado: '', cidade: '', bairro: '', rua: '', tipoLixo: ''
   });
 
-  // Estados para guardar a lista do IBGE
   const [listaEstados, setListaEstados] = useState([]);
   const [listaCidades, setListaCidades] = useState([]);
 
-  // Assim que a tela carrega, busca os estados no IBGE
   useEffect(() => {
     axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
       .then(response => setListaEstados(response.data));
@@ -24,10 +23,9 @@ export default function Cadastro() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Quando o usuário escolhe um estado, busca as cidades dele
   const handleEstadoChange = async (e) => {
     const uf = e.target.value;
-    setFormData({ ...formData, estado: uf, cidade: '' }); // Salva o estado e zera a cidade
+    setFormData({ ...formData, estado: uf, cidade: '' });
     
     if (uf) {
       const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
@@ -40,7 +38,7 @@ export default function Cadastro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/coletas', formData);
+      await coletaService.criar(formData);
       navigate('/confirmacao'); 
     } catch (error) {
       alert("Erro ao enviar. Verifique se o servidor backend está rodando.");
@@ -71,7 +69,6 @@ export default function Cadastro() {
           <fieldset>
             <legend>Detalhes da Coleta</legend>
             
-            {/* Novos campos de Estado e Município puxando do IBGE */}
             <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
               <div style={{ flex: 1 }}>
                 <label>Estado (UF):</label>

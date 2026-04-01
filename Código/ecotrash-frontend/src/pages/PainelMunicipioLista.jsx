@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import coletaService from '../services/coletaService';
 
 export default function PainelMunicipioLista() {
   const navigate = useNavigate();
@@ -8,11 +8,9 @@ export default function PainelMunicipioLista() {
   const [pedidos, setPedidos] = useState([]);
   const [datasTemporarias, setDatasTemporarias] = useState({});
 
-  // Abre a bagagem que veio do Login
   const cidadeLogada = location.state?.cidade;
   const estadoLogado = location.state?.estado;
 
-  // Proteção: Se a pessoa tentar acessar o painel pelo link sem fazer login, manda ela voltar!
   useEffect(() => {
     if (!cidadeLogada || !estadoLogado) {
       alert("Acesso negado. Por favor, faça o login.");
@@ -22,8 +20,7 @@ export default function PainelMunicipioLista() {
 
   const carregarPedidos = () => {
     if (cidadeLogada && estadoLogado) {
-      // Busca SÓ os pedidos que batem com a cidade e estado logados
-      axios.get(`http://localhost:5000/api/coletas/municipio/${estadoLogado}/${cidadeLogada}`)
+      coletaService.buscarPorMunicipio(estadoLogado, cidadeLogada)
         .then(response => setPedidos(response.data))
         .catch(() => alert("Erro ao carregar dados."));
     }
@@ -35,7 +32,7 @@ export default function PainelMunicipioLista() {
 
   const alterarStatus = async (id, novoStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/coletas/${id}`, { status: novoStatus, dataColeta: 'Aguardando prefeitura' });
+      await coletaService.atualizar(id, novoStatus, 'Aguardando prefeitura');
       carregarPedidos();
     } catch (error) {
       alert("Erro ao atualizar o pedido.");
@@ -50,21 +47,19 @@ export default function PainelMunicipioLista() {
     }
     try {
       const dataFormatada = dataEscolhida.split('-').reverse().join('/');
-      await axios.put(`http://localhost:5000/api/coletas/${id}`, { status: 'Agendado', dataColeta: dataFormatada });
+      await coletaService.atualizar(id, 'Agendado', dataFormatada);
       carregarPedidos();
     } catch (error) {
       alert("Erro ao agendar a coleta.");
     }
   };
 
-  // Se não tiver logado ainda, não mostra a tela para não dar erro
-  if (!cidadeLogada) return null; 
+  if (!cidadeLogada) return null;
 
   return (
     <>
       <div className="slogan">LIXO seguro,<br/>PLANETA feliz!</div>
       <div className="panel-table-container">
-        {/* Mostra o nome da cidade no título para confirmar! */}
         <h2>Gestão de Requerimentos - {cidadeLogada}/{estadoLogado}</h2>
         
         {pedidos.length === 0 ? (
@@ -115,7 +110,6 @@ export default function PainelMunicipioLista() {
                       {pedido.status === 'Recusado' && (
                         <span className="status-recusado">❌ Recusado</span>
                       )}
-
                     </td>
                   </tr>
                 ))}
