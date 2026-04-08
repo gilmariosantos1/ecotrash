@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import coletaService from '../services/coletaService';
+import ColetaController from '../controllers/ColetaController';
+import LocalidadeController from '../controllers/LocalidadeController';
 
 export default function Cadastro() {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     nome: '', cpf: '', email: '', telefone: '',
     estado: '', cidade: '', bairro: '', rua: '', tipoLixo: ''
@@ -15,8 +15,9 @@ export default function Cadastro() {
   const [listaCidades, setListaCidades] = useState([]);
 
   useEffect(() => {
-    axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-      .then(response => setListaEstados(response.data));
+    LocalidadeController.carregarEstados()
+      .then(setListaEstados)
+      .catch(() => alert('Erro ao carregar a lista de estados.'));
   }, []);
 
   const handleChange = (e) => {
@@ -26,22 +27,17 @@ export default function Cadastro() {
   const handleEstadoChange = async (e) => {
     const uf = e.target.value;
     setFormData({ ...formData, estado: uf, cidade: '' });
-    
-    if (uf) {
-      const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
-      setListaCidades(response.data);
-    } else {
-      setListaCidades([]);
-    }
+    const municipios = await LocalidadeController.carregarMunicipios(uf);
+    setListaCidades(municipios);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await coletaService.criar(formData);
-      navigate('/confirmacao'); 
-    } catch (error) {
-      alert("Erro ao enviar. Verifique se o servidor backend está rodando.");
+      await ColetaController.criarColeta(formData);
+      navigate('/confirmacao');
+    } catch {
+      alert('Erro ao enviar. Verifique se o servidor backend está rodando.');
     }
   };
 

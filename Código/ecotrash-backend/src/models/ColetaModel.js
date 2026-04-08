@@ -22,6 +22,10 @@ const ColetaModel = {
     db.all(`SELECT * FROM coletas WHERE estado = ? AND cidade = ? ORDER BY id DESC`, [estado, cidade], callback);
   },
 
+  buscarPorId(id, callback) {
+    db.get(`SELECT * FROM coletas WHERE id = ?`, [id], callback);
+  },
+
   atualizar(id, status, dataColeta, callback) {
     db.run(`UPDATE coletas SET status = ?, dataColeta = ? WHERE id = ?`, [status, dataColeta, id], callback);
   }

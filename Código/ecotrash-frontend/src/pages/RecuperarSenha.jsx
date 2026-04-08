@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import municipioService from '../services/municipioService';
+import MunicipioController from '../controllers/MunicipioController';
 
 export default function RecuperarSenha() {
   const navigate = useNavigate();
@@ -11,11 +11,11 @@ export default function RecuperarSenha() {
     e.preventDefault();
     setCarregando(true);
     try {
-      const response = await municipioService.recuperarSenha(email);
-      alert(response.data.mensagem); 
+      const mensagem = await MunicipioController.recuperarSenha(email);
+      alert(mensagem);
       navigate('/municipio/login');
     } catch (error) {
-      alert(error.response?.data?.erro || "Erro ao tentar recuperar a senha.");
+      alert(error.response?.data?.erro || 'Erro ao tentar recuperar a senha.');
     } finally {
       setCarregando(false);
     }

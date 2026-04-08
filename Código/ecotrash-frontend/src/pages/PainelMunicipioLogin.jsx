@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import municipioService from '../services/municipioService';
+import MunicipioController from '../controllers/MunicipioController';
 
 export default function PainelMunicipioLogin() {
   const navigate = useNavigate();
@@ -10,12 +10,10 @@ export default function PainelMunicipioLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await municipioService.login(email, senha);
-      navigate('/municipio/lista', { 
-        state: { cidade: response.data.cidade, estado: response.data.estado } 
-      });
+      const sessao = await MunicipioController.login(email, senha);
+      navigate('/municipio/lista', { state: { cidade: sessao.cidade, estado: sessao.estado } });
     } catch (error) {
-      alert(error.response?.data?.erro || "Erro ao conectar com o servidor.");
+      alert(error.response?.data?.erro || 'Erro ao conectar com o servidor.');
     }
   };
 

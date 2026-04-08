@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import coletaService from '../services/coletaService';
+import ColetaController from '../controllers/ColetaController';
 
 export default function StatusLista() {
   const navigate = useNavigate();
   const location = useLocation();
   const [meusPedidos, setMeusPedidos] = useState([]);
-  
+
   const cpfBusca = location.state?.cpfBusca || '';
 
   useEffect(() => {
     if (cpfBusca) {
-      coletaService.buscarPorCpf(cpfBusca)
-        .then(response => setMeusPedidos(response.data))
+      ColetaController.buscarPorCpf(cpfBusca)
+        .then(setMeusPedidos)
         .catch(() => alert('Erro ao procurar os pedidos.'));
     }
   }, [cpfBusca]);
@@ -34,6 +34,7 @@ export default function StatusLista() {
                   <th>Endereço</th>
                   <th>Data Prevista da Coleta</th>
                   <th>Situação</th>
+                  <th>Detalhes</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,6 +48,9 @@ export default function StatusLista() {
                       {pedido.status === 'Em análise' && <span style={{ color: '#f57c00', fontWeight: 'bold' }}>⏳ {pedido.status}</span>}
                       {pedido.status === 'Recusado' && <span className="status-recusado">❌ {pedido.status}</span>}
                       {pedido.status === 'Aguardando Data' && <span style={{ color: '#1976d2', fontWeight: 'bold' }}>📍 Em processamento</span>}
+                    </td>
+                    <td>
+                      <button className="btn-confirmar-sm" onClick={() => navigate(`/status/detalhes/${pedido.id}`)}>Ver</button>
                     </td>
                   </tr>
                 ))}
