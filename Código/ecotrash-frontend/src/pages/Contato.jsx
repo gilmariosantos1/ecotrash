@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import mensagemService from '../services/mensagemService';
+import MensagemController from '../controllers/MensagemController';
 
 export default function Contato() {
   const [formData, setFormData] = useState({
@@ -13,11 +13,11 @@ export default function Contato() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await mensagemService.criar(formData);
+      await MensagemController.enviar(formData);
       alert(`Obrigado pelo contacto, ${formData.nome}! A sua mensagem sobre "${formData.assunto}" foi enviada com sucesso para a nossa equipa.`);
       setFormData({ nome: '', email: '', assunto: '', mensagem: '' });
-    } catch (error) {
-      alert("Erro ao enviar a mensagem. Verifique se o servidor está ligado.");
+    } catch {
+      alert('Erro ao enviar a mensagem. Verifique se o servidor está ligado.');
     }
   };
 

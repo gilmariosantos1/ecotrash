@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import coletaService from '../services/coletaService';
+import ColetaController from '../controllers/ColetaController';
 
 export default function PainelMunicipioLista() {
   const navigate = useNavigate();
@@ -13,16 +13,16 @@ export default function PainelMunicipioLista() {
 
   useEffect(() => {
     if (!cidadeLogada || !estadoLogado) {
-      alert("Acesso negado. Por favor, faça o login.");
+      alert('Acesso negado. Por favor, faça o login.');
       navigate('/municipio/login');
     }
   }, [cidadeLogada, estadoLogado, navigate]);
 
   const carregarPedidos = () => {
     if (cidadeLogada && estadoLogado) {
-      coletaService.buscarPorMunicipio(estadoLogado, cidadeLogada)
-        .then(response => setPedidos(response.data))
-        .catch(() => alert("Erro ao carregar dados."));
+      ColetaController.buscarPorMunicipio(estadoLogado, cidadeLogada)
+        .then(setPedidos)
+        .catch(() => alert('Erro ao carregar dados.'));
     }
   };
 
@@ -32,25 +32,19 @@ export default function PainelMunicipioLista() {
 
   const alterarStatus = async (id, novoStatus) => {
     try {
-      await coletaService.atualizar(id, novoStatus, 'Aguardando prefeitura');
+      await ColetaController.alterarStatus(id, novoStatus);
       carregarPedidos();
-    } catch (error) {
-      alert("Erro ao atualizar o pedido.");
+    } catch {
+      alert('Erro ao atualizar o pedido.');
     }
   };
 
   const confirmarData = async (id) => {
-    const dataEscolhida = datasTemporarias[id];
-    if (!dataEscolhida) {
-      alert("Por favor, selecione uma data para a coleta.");
-      return;
-    }
     try {
-      const dataFormatada = dataEscolhida.split('-').reverse().join('/');
-      await coletaService.atualizar(id, 'Agendado', dataFormatada);
+      await ColetaController.agendarColeta(id, datasTemporarias[id]);
       carregarPedidos();
     } catch (error) {
-      alert("Erro ao agendar a coleta.");
+      alert(error.message || 'Erro ao agendar a coleta.');
     }
   };
 
@@ -76,6 +70,7 @@ export default function PainelMunicipioLista() {
                   <th>Tipo de Lixo</th>
                   <th>Data Registo</th>
                   <th>Situação / Ação</th>
+                  <th>Detalhes</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,6 +105,14 @@ export default function PainelMunicipioLista() {
                       {pedido.status === 'Recusado' && (
                         <span className="status-recusado">❌ Recusado</span>
                       )}
+                    </td>
+                    <td>
+                      <button
+                        className="btn-confirmar-sm"
+                        onClick={() => navigate(`/municipio/detalhes/${pedido.id}`, { state: { cidade: cidadeLogada, estado: estadoLogado } })}
+                      >
+                        Ver
+                      </button>
                     </td>
                   </tr>
                 ))}

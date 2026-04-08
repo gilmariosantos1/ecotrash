@@ -25,6 +25,14 @@ const ColetaController = {
     });
   },
 
+  buscarPorId(req, res) {
+    ColetaModel.buscarPorId(req.params.id, (err, row) => {
+      if (err) return res.status(500).json({ erro: err.message });
+      if (!row) return res.status(404).json({ erro: 'Requerimento não encontrado.' });
+      res.json(row);
+    });
+  },
+
   buscarPorCpf(req, res) {
     ColetaModel.buscarPorCpf(req.params.cpf, (err, rows) => {
       if (err) return res.status(500).json({ erro: err.message });

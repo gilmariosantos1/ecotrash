@@ -7,6 +7,10 @@ const coletaService = {
     return axios.post(BASE_URL, dados);
   },
 
+  buscarPorId(id) {
+    return axios.get(`${BASE_URL}/${id}`);
+  },
+
   buscarPorCpf(cpf) {
     return axios.get(`${BASE_URL}/cidadao/${cpf}`);
   },

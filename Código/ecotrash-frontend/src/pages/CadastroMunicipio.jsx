@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import municipioService from '../services/municipioService';
+import MunicipioController from '../controllers/MunicipioController';
+import LocalidadeController from '../controllers/LocalidadeController';
 
 export default function CadastroMunicipio() {
   const navigate = useNavigate();
@@ -14,8 +14,9 @@ export default function CadastroMunicipio() {
   const [listaCidades, setListaCidades] = useState([]);
 
   useEffect(() => {
-    axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-      .then(response => setListaEstados(response.data));
+    LocalidadeController.carregarEstados()
+      .then(setListaEstados)
+      .catch(() => alert('Erro ao carregar a lista de estados.'));
   }, []);
 
   const handleChange = (e) => {
@@ -25,22 +26,18 @@ export default function CadastroMunicipio() {
   const handleEstadoChange = async (e) => {
     const uf = e.target.value;
     setFormData({ ...formData, estado: uf, cidade: '' });
-    if (uf) {
-      const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
-      setListaCidades(response.data);
-    } else {
-      setListaCidades([]);
-    }
+    const municipios = await LocalidadeController.carregarMunicipios(uf);
+    setListaCidades(municipios);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await municipioService.criar(formData);
-      alert("Município cadastrado com sucesso! Já pode fazer o login.");
-      navigate('/municipio/login'); 
+      await MunicipioController.cadastrar(formData);
+      alert('Município cadastrado com sucesso! Já pode fazer o login.');
+      navigate('/municipio/login');
     } catch (error) {
-      alert(error.response?.data?.erro || "Erro ao cadastrar.");
+      alert(error.response?.data?.erro || 'Erro ao cadastrar.');
     }
   };
 
