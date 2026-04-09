@@ -1,0 +1,158 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: url('../img/fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+
+/* Navbar */
+nav {
+  background: #6CA632;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Centralizar somente os links */
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center; /* <-- centraliza os itens dentro do espaço do UL */
+  flex: 1; /* <-- ocupa o espaço sobrando para permitir centralização */
+  gap: 27px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1b5e20;
+}
+
+/* Slogan */
+.slogan {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  max-width: 250px;
+  font-size: 34px;
+  font-weight: bold;
+  color: #f57c00;
+  line-height: 1.2;
+}
+
+/* Painel Município */
+.panel-municipio {
+  background: #fffbea;
+  max-width: 420px;
+  margin: 160px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.panel-municipio h2 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: #2e7d32;
+}
+
+.panel-municipio p {
+  margin: 8px 0;
+  color: #444;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px 0;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.btn-voltar {
+  background: #f57c00;
+  color: #ffffff;
+}
+
+.btn-voltar:hover {
+  background: #bbb;
+}
+
+.btn-aceitar {
+  background: #43a047;
+  color: #fff;
+}
+
+.btn-aceitar:hover {
+  background: #2e7d32;
+}
+
+.btn-recusar {
+  background: #e53935;
+  color: #fff;
+}
+
+.btn-recusar:hover {
+  background: #b71c1c;
+}
+
+/* Inputs*/
+input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Ícones */
+.icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  color: #2e7d32;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slogan {
+    position: static;
+    margin: 20px;
+    font-size: 24px;
+  }
+  .panel {
+    margin: 100px 20px;
+    padding: 25px;
+  }
+}
