@@ -13,6 +13,7 @@ export default function Home() {
           <Link to="/municipio/cadastro" className="panel-btn">Cadastrar Município</Link>
           <Link to="/cadastro" className="panel-btn">Solicitar coleta</Link>
           <Link to="/status/login" className="panel-btn">Status requerimento</Link>
+          <Link to="/mapa-pontos" className="panel-btn">Mapa de Pontos</Link>
         </div>
       </div>
     </>
