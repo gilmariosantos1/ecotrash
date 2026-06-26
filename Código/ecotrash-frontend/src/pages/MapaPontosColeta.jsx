@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const pontosDeColeta = [
@@ -37,6 +37,20 @@ const pontosDeColeta = [
 export default function MapaPontosColeta() {
   const navigate = useNavigate();
   const [selectedPoint, setSelectedPoint] = useState(pontosDeColeta[0]);
+  const [searchCity, setSearchCity] = useState('');
+  const [filterType, setFilterType] = useState('Todos');
+
+  const filteredPoints = useMemo(() => {
+    const term = searchCity.toLowerCase();
+
+    return pontosDeColeta.filter((ponto) => {
+      const matchesCity = ponto.city.toLowerCase().includes(term);
+      const matchesType = filterType === 'Todos' || ponto.type === filterType;
+      return matchesCity && matchesType;
+    });
+  }, [filterType, searchCity]);
+
+  const visiblePoint = filteredPoints.find((ponto) => ponto.id === selectedPoint.id) || filteredPoints[0] || null;
 
   return (
     <>
@@ -54,12 +68,12 @@ export default function MapaPontosColeta() {
           <div className="map-sidebar-top">
             <div className="search-group">
               <label htmlFor="search-city">Buscar cidade</label>
-              <input id="search-city" type="text" placeholder="Ex: São Paulo" />
+              <input id="search-city" type="text" value={searchCity} onChange={(event) => setSearchCity(event.target.value)} placeholder="Ex: São Paulo" />
             </div>
 
             <div className="search-group">
               <label htmlFor="filter-type">Filtrar por tipo</label>
-              <select id="filter-type">
+              <select id="filter-type" value={filterType} onChange={(event) => setFilterType(event.target.value)}>
                 <option>Todos</option>
                 <option>Coleta Seletiva</option>
                 <option>Ponto Verde</option>
@@ -69,11 +83,11 @@ export default function MapaPontosColeta() {
           </div>
 
           <div className="map-card-list">
-            {pontosDeColeta.map((ponto) => (
+            {filteredPoints.length > 0 ? filteredPoints.map((ponto) => (
               <button
                 type="button"
                 key={ponto.id}
-                className={`point-card ${selectedPoint.id === ponto.id ? 'active' : ''}`}
+                className={`point-card ${visiblePoint?.id === ponto.id ? 'active' : ''}`}
                 onClick={() => setSelectedPoint(ponto)}
               >
                 <div className="point-card-header">
@@ -87,27 +101,44 @@ export default function MapaPontosColeta() {
                 </div>
                 <p>{ponto.address}</p>
               </button>
-            ))}
+            )) : (
+              <div className="empty-state">Nenhum ponto encontrado para a busca atual.</div>
+            )}
           </div>
         </aside>
 
         <section className="map-main">
           <div className="map-placeholder">
-            <div>
-              <div className="map-placeholder-title">Mapa Interativo</div>
-              <p>O mapa será integrado aqui para mostrar todos os pontos de coleta no seu município.</p>
-              <span className="map-badge">Design base</span>
+            <div className="map-legend">
+              <span className="map-legend-item"><span className="legend-dot available" /> Aberto</span>
+              <span className="map-legend-item"><span className="legend-dot closed" /> Fechado</span>
+            </div>
+            <div className="map-route-card">
+              <div className="map-route-title">Rota sugerida</div>
+              <p>Confira os pontos mais próximos e escolha o que melhor atende à sua rotina.</p>
+            </div>
+            <div className="map-pins">
+              {filteredPoints.length > 0 ? filteredPoints.map((ponto) => (
+                <button
+                  key={ponto.id}
+                  type="button"
+                  className={`map-pin ${ponto.available ? 'available' : 'closed'} ${visiblePoint?.id === ponto.id ? 'selected' : ''}`}
+                  onClick={() => setSelectedPoint(ponto)}
+                >
+                  {ponto.id}
+                </button>
+              )) : null}
             </div>
           </div>
 
           <div className="map-details">
             <div className="details-card">
-              <h3>{selectedPoint.name}</h3>
-              <p className="details-type">{selectedPoint.type}</p>
-              <p>{selectedPoint.address}</p>
-              <p><strong>Cidade:</strong> {selectedPoint.city}</p>
-              <p><strong>Horário:</strong> {selectedPoint.hours}</p>
-              <p>{selectedPoint.description}</p>
+              <h3>{visiblePoint ? visiblePoint.name : 'Nenhum ponto disponível'}</h3>
+              <p className="details-type">{visiblePoint?.type}</p>
+              <p>{visiblePoint?.address}</p>
+              <p><strong>Cidade:</strong> {visiblePoint?.city}</p>
+              <p><strong>Horário:</strong> {visiblePoint?.hours}</p>
+              <p>{visiblePoint?.description}</p>
             </div>
             <div className="details-card details-contact">
               <h4>Como chegar</h4>

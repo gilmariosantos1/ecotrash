@@ -16,6 +16,7 @@ import StatusLogin from './pages/StatusLogin.jsx';
 import StatusLista from './pages/StatusLista.jsx';
 import StatusDetalhes from './pages/StatusDetalhes.jsx';
 import CadastroMunicipio from './pages/CadastroMunicipio.jsx';
+import HistoricoDescartes from './pages/HistoricoDescartes.jsx';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/status/detalhes/:id" element={<StatusDetalhes />} />
         <Route path="/municipio/cadastro" element={<CadastroMunicipio />} />
         <Route path="/mapa-pontos" element={<MapaPontosColeta />} />
+        <Route path="/historico-descartes" element={<HistoricoDescartes />} />
       </Routes>
     </>
   );
