@@ -1,6 +1,4 @@
-/* ==========================================================================
-   RESET & GLOBAL
-   ========================================================================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,15 +7,12 @@
 }
 
 body {
-  /* No React/Vite, a pasta 'img' deve ficar dentro da pasta 'public' */
   background: url('/img/fundo.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #333;
 }
 
-/* ==========================================================================
-   NAVBAR & SLOGAN
-   ========================================================================== */
+
 nav {
   background: #6CA632;
   display: flex;
