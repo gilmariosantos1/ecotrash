@@ -10,11 +10,13 @@ import PainelMunicipioLogin from './pages/PainelMunicipioLogin.jsx';
 import PainelMunicipioLista from './pages/PainelMunicipioLista.jsx';
 import PainelMunicipioDetalhes from './pages/PainelMunicipioDetalhes.jsx';
 import RecuperarSenha from './pages/RecuperarSenha.jsx'; // 👈 AQUI: Importamos a nova página
+import MapaPontosColeta from './pages/MapaPontosColeta.jsx';
 
 import StatusLogin from './pages/StatusLogin.jsx';
 import StatusLista from './pages/StatusLista.jsx';
 import StatusDetalhes from './pages/StatusDetalhes.jsx';
 import CadastroMunicipio from './pages/CadastroMunicipio.jsx';
+import HistoricoDescartes from './pages/HistoricoDescartes.jsx';
 
 export default function App() {
   return (
@@ -37,6 +39,8 @@ export default function App() {
         <Route path="/status/lista" element={<StatusLista />} />
         <Route path="/status/detalhes/:id" element={<StatusDetalhes />} />
         <Route path="/municipio/cadastro" element={<CadastroMunicipio />} />
+        <Route path="/mapa-pontos" element={<MapaPontosColeta />} />
+        <Route path="/historico-descartes" element={<HistoricoDescartes />} />
       </Routes>
     </>
   );
