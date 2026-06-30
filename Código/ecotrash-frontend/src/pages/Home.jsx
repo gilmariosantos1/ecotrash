@@ -15,6 +15,7 @@ export default function Home() {
           <Link to="/status/login" className="panel-btn">Status requerimento</Link>
           <Link to="/mapa-pontos" className="panel-btn">Mapa de Pontos</Link>
           <Link to="/historico-descartes" className="panel-btn">Histórico de Descartes</Link>
+          <Link to="/admin" className="panel-btn">Painel Admin</Link>
         </div>
       </div>
     </>
