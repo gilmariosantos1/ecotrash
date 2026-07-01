@@ -17,6 +17,7 @@ import StatusLista from './pages/StatusLista.jsx';
 import StatusDetalhes from './pages/StatusDetalhes.jsx';
 import CadastroMunicipio from './pages/CadastroMunicipio.jsx';
 import HistoricoDescartes from './pages/HistoricoDescartes.jsx';
+import PainelAdmin from './pages/PainelAdmin.jsx';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/municipio/cadastro" element={<CadastroMunicipio />} />
         <Route path="/mapa-pontos" element={<MapaPontosColeta />} />
         <Route path="/historico-descartes" element={<HistoricoDescartes />} />
+        <Route path="/admin" element={<PainelAdmin />} />
       </Routes>
     </>
   );
