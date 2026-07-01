@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import ColetaController from '../controllers/ColetaController';
 
 export default function PainelMunicipioLista() {
   const navigate = useNavigate();
@@ -8,24 +8,21 @@ export default function PainelMunicipioLista() {
   const [pedidos, setPedidos] = useState([]);
   const [datasTemporarias, setDatasTemporarias] = useState({});
 
-  // Abre a bagagem que veio do Login
   const cidadeLogada = location.state?.cidade;
   const estadoLogado = location.state?.estado;
 
-  // Proteção: Se a pessoa tentar acessar o painel pelo link sem fazer login, manda ela voltar!
   useEffect(() => {
     if (!cidadeLogada || !estadoLogado) {
-      alert("Acesso negado. Por favor, faça o login.");
+      alert('Acesso negado. Por favor, faça o login.');
       navigate('/municipio/login');
     }
   }, [cidadeLogada, estadoLogado, navigate]);
 
   const carregarPedidos = () => {
     if (cidadeLogada && estadoLogado) {
-      // Busca SÓ os pedidos que batem com a cidade e estado logados
-      axios.get(`http://localhost:5000/api/coletas/municipio/${estadoLogado}/${cidadeLogada}`)
-        .then(response => setPedidos(response.data))
-        .catch(() => alert("Erro ao carregar dados."));
+      ColetaController.buscarPorMunicipio(estadoLogado, cidadeLogada)
+        .then(setPedidos)
+        .catch(() => alert('Erro ao carregar dados.'));
     }
   };
 
@@ -35,36 +32,28 @@ export default function PainelMunicipioLista() {
 
   const alterarStatus = async (id, novoStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/coletas/${id}`, { status: novoStatus, dataColeta: 'Aguardando prefeitura' });
+      await ColetaController.alterarStatus(id, novoStatus);
       carregarPedidos();
-    } catch (error) {
-      alert("Erro ao atualizar o pedido.");
+    } catch {
+      alert('Erro ao atualizar o pedido.');
     }
   };
 
   const confirmarData = async (id) => {
-    const dataEscolhida = datasTemporarias[id];
-    if (!dataEscolhida) {
-      alert("Por favor, selecione uma data para a coleta.");
-      return;
-    }
     try {
-      const dataFormatada = dataEscolhida.split('-').reverse().join('/');
-      await axios.put(`http://localhost:5000/api/coletas/${id}`, { status: 'Agendado', dataColeta: dataFormatada });
+      await ColetaController.agendarColeta(id, datasTemporarias[id]);
       carregarPedidos();
     } catch (error) {
-      alert("Erro ao agendar a coleta.");
+      alert(error.message || 'Erro ao agendar a coleta.');
     }
   };
 
-  // Se não tiver logado ainda, não mostra a tela para não dar erro
-  if (!cidadeLogada) return null; 
+  if (!cidadeLogada) return null;
 
   return (
     <>
       <div className="slogan">LIXO seguro,<br/>PLANETA feliz!</div>
       <div className="panel-table-container">
-        {/* Mostra o nome da cidade no título para confirmar! */}
         <h2>Gestão de Requerimentos - {cidadeLogada}/{estadoLogado}</h2>
         
         {pedidos.length === 0 ? (
@@ -81,6 +70,7 @@ export default function PainelMunicipioLista() {
                   <th>Tipo de Lixo</th>
                   <th>Data Registo</th>
                   <th>Situação / Ação</th>
+                  <th>Detalhes</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,7 +105,14 @@ export default function PainelMunicipioLista() {
                       {pedido.status === 'Recusado' && (
                         <span className="status-recusado">❌ Recusado</span>
                       )}
-
+                    </td>
+                    <td>
+                      <button
+                        className="btn-confirmar-sm"
+                        onClick={() => navigate(`/municipio/detalhes/${pedido.id}`, { state: { cidade: cidadeLogada, estado: estadoLogado } })}
+                      >
+                        Ver
+                      </button>
                     </td>
                   </tr>
                 ))}

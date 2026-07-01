@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import MunicipioController from '../controllers/MunicipioController';
 
 export default function PainelMunicipioLogin() {
   const navigate = useNavigate();
@@ -10,12 +10,10 @@ export default function PainelMunicipioLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/municipios/login', { email, senha });
-      navigate('/municipio/lista', { 
-        state: { cidade: response.data.cidade, estado: response.data.estado } 
-      });
+      const sessao = await MunicipioController.login(email, senha);
+      navigate('/municipio/lista', { state: { cidade: sessao.cidade, estado: sessao.estado } });
     } catch (error) {
-      alert(error.response?.data?.erro || "Erro ao conectar com o servidor.");
+      alert(error.response?.data?.erro || 'Erro ao conectar com o servidor.');
     }
   };
 
@@ -31,7 +29,6 @@ export default function PainelMunicipioLogin() {
           <label htmlFor="senha" style={{ textAlign: 'left' }}>Senha:</label>
           <input type="password" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Digite sua senha" required />
 
-          {/* 👇 OLHA O LINK DE ESQUECI A SENHA AQUI 👇 */}
           <div style={{ textAlign: 'right', marginTop: '-5px' }}>
             <Link to="/municipio/recuperar-senha" style={{ fontSize: '14px', color: '#2e7d32', textDecoration: 'none', fontWeight: 'bold' }}>
               Esqueci minha senha

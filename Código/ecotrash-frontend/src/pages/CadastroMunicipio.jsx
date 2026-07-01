@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import MunicipioController from '../controllers/MunicipioController';
+import LocalidadeController from '../controllers/LocalidadeController';
 
 export default function CadastroMunicipio() {
   const navigate = useNavigate();
@@ -79,11 +80,11 @@ export default function CadastroMunicipio() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/municipios', formData);
-      alert("Município cadastrado com sucesso! Já pode fazer o login.");
-      navigate('/municipio/login'); 
+      await MunicipioController.cadastrar(formData);
+      alert('Município cadastrado com sucesso! Já pode fazer o login.');
+      navigate('/municipio/login');
     } catch (error) {
-      alert(error.response?.data?.erro || "Erro ao cadastrar.");
+      alert(error.response?.data?.erro || 'Erro ao cadastrar.');
     }
   };
 
