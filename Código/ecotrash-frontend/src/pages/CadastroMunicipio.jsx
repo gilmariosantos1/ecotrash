@@ -11,10 +11,27 @@ export default function CadastroMunicipio() {
 
   const [listaEstados, setListaEstados] = useState([]);
   const [listaCidades, setListaCidades] = useState([]);
+  const [filteredCidades, setFilteredCidades] = useState([]);
+  const [loadingEstados, setLoadingEstados] = useState(false);
+  const [loadingCidades, setLoadingCidades] = useState(false);
+  const [buscaCidade, setBuscaCidade] = useState('');
+  const [erro, setErro] = useState('');
 
   useEffect(() => {
-    axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-      .then(response => setListaEstados(response.data));
+    const carregarEstados = async () => {
+      setLoadingEstados(true);
+      setErro('');
+      try {
+        const response = await axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+        setListaEstados(response.data);
+      } catch (error) {
+        setErro('Erro ao carregar estados. Tente novamente.');
+        console.error('Erro ao carregar estados:', error);
+      } finally {
+        setLoadingEstados(false);
+      }
+    };
+    carregarEstados();
   }, []);
 
   const handleChange = (e) => {
@@ -24,11 +41,38 @@ export default function CadastroMunicipio() {
   const handleEstadoChange = async (e) => {
     const uf = e.target.value;
     setFormData({ ...formData, estado: uf, cidade: '' });
+    setBuscaCidade('');
+    setFilteredCidades([]);
+    setErro('');
+    
     if (uf) {
-      const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
-      setListaCidades(response.data);
+      setLoadingCidades(true);
+      try {
+        const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+        setListaCidades(response.data);
+        setFilteredCidades(response.data);
+      } catch (error) {
+        setErro('Erro ao carregar cidades. Tente novamente.');
+        console.error('Erro ao carregar cidades:', error);
+      } finally {
+        setLoadingCidades(false);
+      }
     } else {
       setListaCidades([]);
+      setFilteredCidades([]);
+    }
+  };
+
+  // Filtrar cidades conforme o usuário digita
+  const handleBuscaCidade = (e) => {
+    const texto = e.target.value.toLowerCase();
+    setBuscaCidade(texto);
+    if (texto) {
+      setFilteredCidades(listaCidades.filter(cidade => 
+        cidade.nome.toLowerCase().includes(texto)
+      ));
+    } else {
+      setFilteredCidades(listaCidades);
     }
   };
 
@@ -48,14 +92,15 @@ export default function CadastroMunicipio() {
       <div className="slogan">LIXO seguro,<br/>PLANETA feliz!</div>
       <div className="form-container">
         <h2>Cadastro de Novo Município / Parceiro</h2>
+        {erro && <div style={{ padding: '10px', marginBottom: '15px', backgroundColor: '#fee', color: '#c00', borderRadius: '6px', border: '1px solid #fcc' }}>{erro}</div>}
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>Localidade</legend>
             <div style={{ display: 'flex', gap: '15px' }}>
               <div style={{ flex: 1 }}>
                 <label>Estado (UF):</label>
-                <select name="estado" value={formData.estado} onChange={handleEstadoChange} required style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}>
-                  <option value="">Selecione...</option>
+                <select name="estado" value={formData.estado} onChange={handleEstadoChange} required disabled={loadingEstados} style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}>
+                  <option value="">{loadingEstados ? 'Carregando...' : 'Selecione...'}</option>
                   {listaEstados.map(uf => (
                     <option key={uf.sigla} value={uf.sigla}>{uf.nome}</option>
                   ))}
@@ -64,9 +109,18 @@ export default function CadastroMunicipio() {
 
               <div style={{ flex: 2 }}>
                 <label>Município:</label>
-                <select name="cidade" value={formData.cidade} onChange={handleChange} required disabled={!formData.estado} style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}>
-                  <option value="">{formData.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}</option>
-                  {listaCidades.map(cidade => (
+                {formData.estado && !loadingCidades && (
+                  <input 
+                    type="text" 
+                    placeholder="Buscar cidade..." 
+                    value={buscaCidade}
+                    onChange={handleBuscaCidade}
+                    style={{ width: '100%', padding: '10px', marginTop: '5px', marginBottom: '8px', borderRadius: '6px', border: '1px solid #bbb' }}
+                  />
+                )}
+                <select name="cidade" value={formData.cidade} onChange={handleChange} required disabled={!formData.estado || loadingCidades} style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}>
+                  <option value="">{loadingCidades ? 'Carregando cidades...' : formData.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}</option>
+                  {filteredCidades.map(cidade => (
                     <option key={cidade.id} value={cidade.nome}>{cidade.nome}</option>
                   ))}
                 </select>
