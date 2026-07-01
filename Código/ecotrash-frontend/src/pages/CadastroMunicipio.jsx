@@ -61,7 +61,6 @@ export default function CadastroMunicipio() {
               </div>
 
               <div style={{ flex: 2 }}>
-                <label>Município:</label>
                 <select name="cidade" value={formData.cidade} onChange={handleChange} required disabled={!formData.estado} style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}>
                   <option value="">{formData.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}</option>
                   {listaCidades.map(cidade => (
