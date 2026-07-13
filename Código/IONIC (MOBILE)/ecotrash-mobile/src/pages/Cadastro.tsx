@@ -77,7 +77,7 @@ const Cadastro: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" text="Voltar" color="light" />
           </IonButtons>
-<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
+          <IonTitle>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-cad">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />
@@ -92,7 +92,7 @@ const Cadastro: React.FC = () => {
 
       <IonContent>
         <div className="page-wrapper" style={{ padding: '20px 16px' }}>
-          <div className="eco-slogan">LIXO seguro,<br />PLANETA feliz!</div>
+          {/* <div className="eco-slogan">LIXO seguro,<br />PLANETA feliz!</div>*/}
 
           <div style={{ ...cardStyle, marginTop: 16 }}>
             <h2 style={{ color: '#5cb85c', fontWeight: 700, marginBottom: 16 }}>

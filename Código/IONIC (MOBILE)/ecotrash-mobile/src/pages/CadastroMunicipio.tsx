@@ -99,7 +99,7 @@ const CadastroMunicipio: React.FC = () => {
 
       <IonContent>
         <div className="page-wrapper" style={{ padding: '20px 16px' }}>
-          <div className="eco-slogan">LIXO seguro,<br />PLANETA feliz!</div>
+          {/* <div className="eco-slogan">LIXO seguro,<br />PLANETA feliz!</div>*/}
 
           {/* Localidade */}
           <div style={{ ...cardStyle, marginTop: 16 }}>
