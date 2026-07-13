@@ -28,7 +28,17 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Ecotrash</IonTitle>
+          {/* Botão invisível no lado esquerdo para equilibrar e centralizar o título */}
+          <IonButtons slot="start">
+            <IonButton style={{ opacity: 0, pointerEvents: 'none' }}>
+              <IonIcon icon={ellipsisVertical} />
+            </IonButton>
+          </IonButtons>
+
+          <IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>
+            Ecotrash
+          </IonTitle>
+
           <IonButtons slot="end">
             <IonButton id="menu-trigger">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />
@@ -44,10 +54,6 @@ const Home: React.FC = () => {
 
       <IonContent>
         <div className="page-wrapper" style={{ padding: '20px 16px', minHeight: '100%' }}>
-          {/* Slogan */}
-          <div className="eco-slogan">
-            LIXO seguro,<br />PLANETA feliz!
-          </div>
 
           {/* Painel de controle */}
           <div style={{

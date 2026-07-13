@@ -89,7 +89,7 @@ const PainelMunicipioDetalhes: React.FC = () => {
               onClick={() => history.push('/municipio/lista', sessao)}
             />
           </IonButtons>
-          <IonTitle>Ecotrash</IonTitle>
+<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-pmd">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />

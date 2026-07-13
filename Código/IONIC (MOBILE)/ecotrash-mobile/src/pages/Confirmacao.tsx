@@ -13,7 +13,7 @@ const Confirmacao: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Ecotrash</IonTitle>
+<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
         </IonToolbar>
       </IonHeader>
 

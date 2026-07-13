@@ -47,7 +47,7 @@ const RecuperarSenha: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/municipio/login" text="Voltar" color="light" />
           </IonButtons>
-          <IonTitle>Ecotrash</IonTitle>
+<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-rs">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />

@@ -1,5 +1,5 @@
 {
   "name": "ecotrash-mobile",
   "integrations": {},
-  "type": "react"
+  "type": "react-vite"
 }
