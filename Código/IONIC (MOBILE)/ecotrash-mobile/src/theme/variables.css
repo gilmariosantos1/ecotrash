@@ -35,9 +35,9 @@
   --ion-color-success-rgb: 92, 184, 92;
   --ion-color-success-contrast: #ffffff;
 
-  /* Background global */
-  --ion-background-color: #1a1a1a;
-  --ion-background-color-rgb: 26, 26, 26;
+  /* Background: precisa ser transparente para a imagem aparecer */
+  --ion-background-color: transparent;
+  --ion-background-color-rgb: 0, 0, 0;
 
   /* Texto */
   --ion-text-color: #ffffff;
@@ -59,23 +59,36 @@
   --ion-placeholder-color: rgba(255, 255, 255, 0.45);
 }
 
-/* Fundo global com imagem de natureza */
+/* =============================================
+   FUNDO GLOBAL — precisa estar no body e ion-app
+   ion-page não funciona no Ionic
+   ============================================= */
+body,
+ion-app {
+  background: url('/img/fundo.jpg') center center / cover no-repeat fixed !important;
+}
+
+/* ion-page e ion-content totalmente transparentes */
+ion-page,
 ion-content {
-  --background: transparent;
+  background: transparent !important;
+  --background: transparent !important;
 }
 
-ion-page {
-  background: url('/img/fundo.jpg') center center / cover no-repeat fixed;
-}
-
-/* Overlay escuro sobre o fundo */
-ion-page::before {
+/* Overlay escuro sobre a imagem de fundo */
+body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.52);
   z-index: 0;
   pointer-events: none;
+}
+
+/* Garante que todo conteúdo fica acima do overlay */
+ion-app {
+  position: relative;
+  z-index: 1;
 }
 
 ion-content > .ion-padding,
@@ -84,7 +97,9 @@ ion-content .page-wrapper {
   z-index: 1;
 }
 
-/* Toolbar customizada */
+/* =============================================
+   TOOLBAR
+   ============================================= */
 ion-toolbar {
   --background: rgba(20, 48, 20, 0.92);
   --border-color: rgba(92, 184, 92, 0.3);
@@ -98,7 +113,9 @@ ion-title {
   font-size: 20px;
 }
 
-/* Botão primário */
+/* =============================================
+   BOTÕES
+   ============================================= */
 ion-button.btn-primary {
   --background: #5cb85c;
   --background-hover: #51a251;
@@ -111,7 +128,6 @@ ion-button.btn-primary {
   height: 48px;
 }
 
-/* Botão secundário (outline) */
 ion-button.btn-secondary {
   --background: transparent;
   --border-color: rgba(255, 255, 255, 0.5);
@@ -122,7 +138,9 @@ ion-button.btn-secondary {
   height: 48px;
 }
 
-/* Cartão padrão */
+/* =============================================
+   CARDS
+   ============================================= */
 ion-card.eco-card {
   background: rgba(0, 0, 0, 0.68);
   border: 1px solid rgba(92, 184, 92, 0.25);
@@ -138,7 +156,9 @@ ion-card-title {
   font-weight: 700;
 }
 
-/* Inputs */
+/* =============================================
+   INPUTS
+   ============================================= */
 ion-item {
   --background: rgba(255, 255, 255, 0.08);
   --color: #fff;
@@ -158,7 +178,9 @@ ion-input, ion-textarea, ion-select {
   --placeholder-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Badges de status */
+/* =============================================
+   BADGES DE STATUS
+   ============================================= */
 .badge-pendente {
   background: rgba(245, 166, 35, 0.2);
   color: #f5a623;
@@ -199,7 +221,9 @@ ion-input, ion-textarea, ion-select {
   font-weight: 600;
 }
 
-/* Slogan */
+/* =============================================
+   COMPONENTES DE LAYOUT
+   ============================================= */
 .eco-slogan {
   text-align: center;
   color: #ffffff;
@@ -210,7 +234,6 @@ ion-input, ion-textarea, ion-select {
   padding: 20px 16px 8px;
 }
 
-/* Separator */
 .eco-separator {
   display: flex;
   align-items: center;
@@ -227,7 +250,6 @@ ion-input, ion-textarea, ion-select {
   background: rgba(255,255,255,0.2);
 }
 
-/* Listas de requerimentos */
 .req-item {
   background: rgba(0,0,0,0.6);
   border: 1px solid rgba(92, 184, 92, 0.2);

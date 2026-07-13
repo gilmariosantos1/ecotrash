@@ -16,7 +16,7 @@ const Sobre: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" text="Voltar" color="light" />
           </IonButtons>
-          <IonTitle>Ecotrash</IonTitle>
+<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-sobre">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />
