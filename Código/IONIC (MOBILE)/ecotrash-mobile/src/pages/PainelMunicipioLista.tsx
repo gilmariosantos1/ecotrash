@@ -90,7 +90,7 @@ const PainelMunicipioLista: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Ecotrash</IonTitle>
+<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-pml-lista">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />
