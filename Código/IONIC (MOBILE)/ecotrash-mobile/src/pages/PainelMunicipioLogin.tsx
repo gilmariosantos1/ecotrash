@@ -118,7 +118,7 @@ const PainelMunicipioLogin: React.FC = () => {
                 margin: '-65px auto -75px',
               }}
             >
-              <img
+              {/*<img
                 src={logoEcotrash}
                 alt="EcoTrash"
                 style={{
@@ -127,6 +127,7 @@ const PainelMunicipioLogin: React.FC = () => {
                   objectFit: 'contain',
                 }}
               />
+              */}
             </div>
 
             <h2
@@ -140,14 +141,17 @@ const PainelMunicipioLogin: React.FC = () => {
               Entrar
             </h2>
 
+           {/*
             <p
               style={{
                 color: 'rgb(255, 255, 255)',
-                marginTop: 6,
+                marginTop: 100,
+                fontSize: 30,
               }}
             >
               Bem-vindo de volta
             </p>
+            */}
           </div>
 
           {/* Card de login */}
