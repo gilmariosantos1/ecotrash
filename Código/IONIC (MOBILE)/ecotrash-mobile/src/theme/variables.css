@@ -157,7 +157,7 @@ ion-card-title {
 }
 
 /* =============================================
-   INPUTS
+   INPUTS E SELECTS
    ============================================= */
 ion-item {
   --background: rgba(255, 255, 255, 0.08);
@@ -176,6 +176,18 @@ ion-label {
 ion-input, ion-textarea, ion-select {
   --color: #fff;
   --placeholder-color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- Menu do IonSelect (Alert / Popover) --- */
+/* Muda a cor do texto das opções para branco no Select do Ionic */
+.meu-select-branco .alert-radio-label, 
+.meu-select-branco .alert-checkbox-label {
+  color: #ffffff !important;
+}
+
+/* Muda a cor dos botões "CANCEL" e "OK" do Select para branco */
+.meu-select-branco .alert-button {
+  color: #ffffff !important;
 }
 
 /* =============================================
