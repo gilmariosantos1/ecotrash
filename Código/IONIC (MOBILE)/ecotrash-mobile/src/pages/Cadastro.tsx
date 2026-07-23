@@ -137,7 +137,10 @@ const Cadastro: React.FC = () => {
 
                 <IonItem>
                   <IonLabel position="stacked">Estado (UF)</IonLabel>
-                  <IonSelect value={form.estado} placeholder="Selecione o estado..."
+                  <IonSelect 
+                    interfaceOptions={{ cssClass: 'meu-select-branco' }} /* <--- CLASSE ADICIONADA */
+                    value={form.estado} 
+                    placeholder="Selecione o estado..."
                     onIonChange={(e) => handleEstadoChange(e.detail.value)}>
                     {listaEstados.map((uf) => (
                       <IonSelectOption key={uf.sigla} value={uf.sigla}>{uf.nome}</IonSelectOption>
@@ -147,7 +150,10 @@ const Cadastro: React.FC = () => {
 
                 <IonItem>
                   <IonLabel position="stacked">Município</IonLabel>
-                  <IonSelect value={form.cidade} placeholder={form.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}
+                  <IonSelect 
+                    interfaceOptions={{ cssClass: 'meu-select-branco' }} /* <--- CLASSE ADICIONADA */
+                    value={form.cidade} 
+                    placeholder={form.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}
                     disabled={!form.estado}
                     onIonChange={(e) => setForm({ ...form, cidade: e.detail.value })}>
                     {listaCidades.map((cidade) => (
@@ -170,7 +176,10 @@ const Cadastro: React.FC = () => {
 
                 <IonItem>
                   <IonLabel position="stacked">Tipo de Lixo</IonLabel>
-                  <IonSelect value={form.tipoLixo} placeholder="Selecione o tipo..."
+                  <IonSelect 
+                    interfaceOptions={{ cssClass: 'meu-select-branco' }} /* <--- CLASSE ADICIONADA */
+                    value={form.tipoLixo} 
+                    placeholder="Selecione o tipo..."
                     onIonChange={(e) => setForm({ ...form, tipoLixo: e.detail.value })}>
                     <IonSelectOption value="Lixo Comum">Lixo Comum</IonSelectOption>
                     <IonSelectOption value="Entulho">Entulho / Resto de Obra</IonSelectOption>

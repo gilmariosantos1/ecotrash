@@ -84,7 +84,7 @@ const CadastroMunicipio: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" text="Voltar" color="light" />
           </IonButtons>
-<IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
+          <IonTitle style={{ textAlign: 'center', color: '#ffffff' }}>Ecotrash</IonTitle>
           <IonButtons slot="end">
             <IonButton id="menu-cm">
               <IonIcon icon={ellipsisVertical} style={{ color: '#fff' }} />
@@ -120,6 +120,7 @@ const CadastroMunicipio: React.FC = () => {
                 <IonItem>
                   <IonLabel position="stacked">Localidade (Cidade/UF)</IonLabel>
                   <IonSelect
+                    interfaceOptions={{ cssClass: 'meu-select-branco' }} /* <--- CLASSE ADICIONADA AQUI */
                     value={form.estado}
                     placeholder="Selecione o estado..."
                     onIonChange={(e) => handleEstadoChange(e.detail.value)}
@@ -133,6 +134,7 @@ const CadastroMunicipio: React.FC = () => {
                 <IonItem>
                   <IonLabel position="stacked">Município</IonLabel>
                   <IonSelect
+                    interfaceOptions={{ cssClass: 'meu-select-branco' }} /* <--- CLASSE ADICIONADA AQUI */
                     value={form.cidade}
                     placeholder={form.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}
                     disabled={!form.estado}
