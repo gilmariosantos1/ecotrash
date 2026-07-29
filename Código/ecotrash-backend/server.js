@@ -14,13 +14,20 @@ app.use('/api/coletas', coletaRoutes);
 app.use('/api/municipios', municipioRoutes);
 app.use('/api/mensagens', mensagemRoutes);
 
-initializeDatabase()
-  .then(() => {
+const startServer = async () => {
+  try {
+    await initializeDatabase();
     app.listen(5000, () => {
       console.log('🚀 Servidor a correr na porta 5000');
     });
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error('Erro ao inicializar o banco:', err.message);
     process.exit(1);
-  });
+  }
+};
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = app;

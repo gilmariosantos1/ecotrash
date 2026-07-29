@@ -12,19 +12,36 @@ const initializeDatabase = () => new Promise((resolve, reject) => {
   const schema = `
     CREATE TABLE IF NOT EXISTS coletas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT, cpf TEXT, email TEXT, telefone TEXT,
-      estado TEXT, cidade TEXT, bairro TEXT, rua TEXT,
-      tipoLixo TEXT, status TEXT, dataRequisicao TEXT, dataColeta TEXT
+      nome TEXT,
+      cpf TEXT,
+      email TEXT,
+      telefone TEXT,
+      estado TEXT,
+      cidade TEXT,
+      bairro TEXT,
+      rua TEXT,
+      tipoLixo TEXT,
+      status TEXT,
+      dataRequisicao TEXT,
+      dataColeta TEXT
     );
 
     CREATE TABLE IF NOT EXISTS municipios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      estado TEXT, cidade TEXT, emailOficial TEXT UNIQUE, telefone TEXT, senha TEXT
+      estado TEXT,
+      cidade TEXT,
+      emailOficial TEXT UNIQUE,
+      telefone TEXT,
+      senha TEXT
     );
 
     CREATE TABLE IF NOT EXISTS mensagens (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT, email TEXT, assunto TEXT, mensagem TEXT, dataEnvio TEXT
+      nome TEXT,
+      email TEXT,
+      assunto TEXT,
+      mensagem TEXT,
+      dataEnvio TEXT
     );
   `;
 

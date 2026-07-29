@@ -7,9 +7,11 @@ const ColetaModel = {
     const dataRequisicao = new Date().toLocaleDateString('pt-BR');
     const dataColeta = 'Aguardando prefeitura';
 
-    const query = `INSERT INTO coletas
-      (nome, cpf, email, telefone, estado, cidade, bairro, rua, tipoLixo, status, dataRequisicao, dataColeta)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `
+      INSERT INTO coletas (
+        nome, cpf, email, telefone, estado, cidade, bairro, rua, tipoLixo, status, dataRequisicao, dataColeta
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
     db.run(query, [nome, cpf, email, telefone, estado, cidade, bairro, rua, tipoLixo, status, dataRequisicao, dataColeta], callback);
   },

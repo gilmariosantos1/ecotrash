@@ -5,36 +5,57 @@ import LocalidadeController from '../controllers/LocalidadeController';
 
 export default function CadastroMunicipio() {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
-    emailOficial: '', senha: '', telefone: '', estado: '', cidade: ''
+    emailOficial: '',
+    senha: '',
+    telefone: '',
+    estado: '',
+    cidade: ''
   });
 
   const [listaEstados, setListaEstados] = useState([]);
   const [listaCidades, setListaCidades] = useState([]);
   const [erro, setErro] = useState('');
+  const [loadingEstados, setLoadingEstados] = useState(false);
+  const [loadingCidades, setLoadingCidades] = useState(false);
 
   useEffect(() => {
-    LocalidadeController.carregarEstados()
-      .then(setListaEstados)
-      .catch(() => setErro('Erro ao carregar a lista de estados.'));
+    const carregarEstados = async () => {
+      setLoadingEstados(true);
+      setErro('');
+      try {
+        const estados = await LocalidadeController.carregarEstados();
+        setListaEstados(estados);
+      } catch {
+        setErro('Erro ao carregar a lista de estados.');
+      } finally {
+        setLoadingEstados(false);
+      }
+    };
+
+    carregarEstados();
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEstadoChange = async (e) => {
     const uf = e.target.value;
-    setFormData({ ...formData, estado: uf, cidade: '' });
+    setFormData((prev) => ({ ...prev, estado: uf, cidade: '' }));
     setErro('');
 
     if (uf) {
+      setLoadingCidades(true);
       try {
         const municipios = await LocalidadeController.carregarMunicipios(uf);
         setListaCidades(municipios);
       } catch {
         setErro('Erro ao carregar cidades. Tente novamente.');
+      } finally {
+        setLoadingCidades(false);
       }
     } else {
       setListaCidades([]);
@@ -54,7 +75,7 @@ export default function CadastroMunicipio() {
 
   return (
     <>
-      <div className="slogan">LIXO seguro,<br/>PLANETA feliz!</div>
+      <div className="slogan">LIXO seguro,<br />PLANETA feliz!</div>
       <div className="form-container">
         <h2>Cadastro de Novo Município / Parceiro</h2>
         {erro && (
@@ -73,9 +94,10 @@ export default function CadastroMunicipio() {
                   value={formData.estado}
                   onChange={handleEstadoChange}
                   required
+                  disabled={loadingEstados}
                   style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}
                 >
-                  <option value="">Selecione...</option>
+                  <option value="">{loadingEstados ? 'Carregando...' : 'Selecione...'}</option>
                   {listaEstados.map((uf) => (
                     <option key={uf.sigla} value={uf.sigla}>
                       {uf.nome}
@@ -91,11 +113,11 @@ export default function CadastroMunicipio() {
                   value={formData.cidade}
                   onChange={handleChange}
                   required
-                  disabled={!formData.estado}
+                  disabled={!formData.estado || loadingCidades}
                   style={{ width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #bbb' }}
                 >
                   <option value="">
-                    {formData.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}
+                    {loadingCidades ? 'Carregando cidades...' : formData.estado ? 'Selecione a cidade...' : 'Escolha o estado primeiro'}
                   </option>
                   {listaCidades.map((cidade) => (
                     <option key={cidade.id} value={cidade.nome}>
