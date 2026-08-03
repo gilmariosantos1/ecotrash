@@ -1,0 +1,347 @@
+/* ============================================
+   EcoTrash - Tema Mobile (Ionic)
+   ============================================ */
+
+:root {
+  --ion-color-primary: #5cb85c;
+  --ion-color-primary-rgb: 92, 184, 92;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #51a251;
+  --ion-color-primary-tint: #6cbf6c;
+
+  --ion-color-secondary: #2e7d32;
+  --ion-color-secondary-rgb: 46, 125, 50;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade: #286828;
+  --ion-color-secondary-tint: #438a47;
+
+  --ion-color-danger: #eb445a;
+  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #cf3c4f;
+  --ion-color-danger-tint: #ed576b;
+
+  --ion-color-warning: #f5a623;
+  --ion-color-warning-rgb: 245, 166, 35;
+
+  --ion-color-success: #5cb85c;
+  --ion-color-success-rgb: 92, 184, 92;
+  --ion-color-success-contrast: #ffffff;
+
+  /* Transparente para a imagem aparecer */
+  --ion-background-color: transparent;
+  --ion-background-color-rgb: 0, 0, 0;
+
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-toolbar-background: rgba(0, 0, 0, 0.85);
+  --ion-toolbar-color: #ffffff;
+
+  --ion-item-background: rgba(255, 255, 255, 0.08);
+  --ion-item-color: #ffffff;
+  --ion-item-border-color: rgba(255, 255, 255, 0.15);
+
+  --ion-card-background: rgba(0, 0, 0, 0.80);
+  --ion-placeholder-color: rgba(255, 255, 255, 0.5);
+}
+
+/* =============================================
+   FUNDO — body e ion-app
+   ============================================= */
+body,
+ion-app {
+  background: url('/img/fundo.jpg') center center / cover no-repeat fixed !important;
+}
+
+ion-page,
+ion-content {
+  background: transparent !important;
+  --background: transparent !important;
+}
+
+/* Overlay escuro — era 0.52, agora 0.74 para melhor legibilidade */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.74);
+  z-index: 0;
+  pointer-events: none;
+}
+
+ion-app {
+  position: relative;
+  z-index: 1;
+}
+
+ion-content > .ion-padding,
+ion-content .page-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   TOOLBAR
+   ============================================= */
+ion-toolbar {
+  --background: rgba(10, 30, 10, 0.96);
+  --border-color: rgba(92, 184, 92, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+ion-title {
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff !important;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Back button e botões da toolbar em branco */
+ion-back-button,
+ion-button[color="light"] {
+  --color: #ffffff;
+  color: #ffffff;
+}
+
+/* =============================================
+   BOTÕES
+   ============================================= */
+ion-button.btn-primary {
+  --background: #5cb85c;
+  --background-hover: #51a251;
+  --background-activated: #438a47;
+  --color: #fff;
+  --border-radius: 8px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 16px;
+  height: 48px;
+}
+
+ion-button.btn-secondary {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.5);
+  --color: #fff;
+  --border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+  height: 48px;
+}
+
+/* =============================================
+   CARDS
+   ============================================= */
+ion-card.eco-card {
+  background: rgba(0, 0, 0, 0.80);
+  border: 1px solid rgba(92, 184, 92, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  margin: 12px;
+  color: #fff;
+}
+
+ion-card-title {
+  color: #5cb85c;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* =============================================
+   INPUTS
+   ============================================= */
+ion-item {
+  --background: rgba(255, 255, 255, 0.10);
+  --color: #ffffff;
+  --border-color: rgba(92, 184, 92, 0.45);
+  --highlight-color-focused: #5cb85c;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+ion-label {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 13px !important;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: #ffffff;
+  --placeholder-color: rgba(255, 255, 255, 0.45);
+}
+
+/* =============================================
+   ALERTAS — fundo escuro e texto visível
+   ============================================= */
+.alert-wrapper {
+  background: rgba(8, 24, 10, 0.98) !important;
+  border: 1.5px solid rgba(92, 184, 92, 0.5) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.alert-head {
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid rgba(92, 184, 92, 0.2) !important;
+}
+
+.alert-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.alert-sub-title {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.alert-message {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+.alert-button-group {
+  border-top: 1px solid rgba(92, 184, 92, 0.2) !important;
+  padding-top: 4px !important;
+}
+
+.alert-button {
+  color: #5cb85c !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  text-transform: none !important;
+}
+
+.alert-button.alert-button-role-cancel {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Opções dentro do alert (radio/checkbox) */
+.alert-radio-label,
+.alert-checkbox-label {
+  color: #ffffff !important;
+}
+
+.alert-radio-icon {
+  border-color: rgba(92, 184, 92, 0.6) !important;
+}
+
+[aria-checked=true] .alert-radio-inner {
+  background: #5cb85c !important;
+}
+
+/* =============================================
+   SELECT POPOVER
+   ============================================= */
+ion-select-popover ion-list {
+  background: rgba(8, 24, 10, 0.98) !important;
+}
+
+ion-select-popover ion-item {
+  --background: transparent;
+  --color: #ffffff;
+}
+
+ion-select-popover ion-radio {
+  --color: #5cb85c;
+  --color-checked: #5cb85c;
+}
+
+/* =============================================
+   BADGES DE STATUS
+   ============================================= */
+.badge-pendente {
+  background: rgba(245, 166, 35, 0.2);
+  color: #f5a623;
+  border: 1px solid #f5a623;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-coletado {
+  background: rgba(92, 184, 92, 0.2);
+  color: #5cb85c;
+  border: 1px solid #5cb85c;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-recusado {
+  background: rgba(235, 68, 90, 0.2);
+  color: #eb445a;
+  border: 1px solid #eb445a;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-processado {
+  background: rgba(92, 184, 92, 0.2);
+  color: #5cb85c;
+  border: 1px solid #5cb85c;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =============================================
+   LAYOUT
+   ============================================= */
+.eco-slogan {
+  text-align: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  padding: 20px 16px 8px;
+}
+
+.eco-separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+.eco-separator::before,
+.eco-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.req-item {
+  background: rgba(0, 0, 0, 0.70);
+  border: 1px solid rgba(92, 184, 92, 0.25);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.req-item-label {
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.req-item-value {
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 2px;
+}
