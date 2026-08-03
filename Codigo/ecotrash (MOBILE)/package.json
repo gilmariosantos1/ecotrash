@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.2",
