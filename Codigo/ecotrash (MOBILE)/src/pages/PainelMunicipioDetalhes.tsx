@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon, IonSpinner, useIonAlert } from '@ionic/react';
-import { checkmarkCircleOutline, closeCircleOutline, locationOutline } from 'ionicons/icons';
+import { checkmarkCircleOutline, closeCircleOutline, locationOutline, trashOutline } from 'ionicons/icons';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import EcoHeader from '../components/EcoHeader';
 import MapaViewer from '../components/MapaViewer';
 import ColetaController from '../controllers/ColetaController';
 import { Coleta, PainelMunicipioState } from '../types';
+
+const API_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
 
 const PainelMunicipioDetalhes: React.FC = () => {
   const history = useHistory();
@@ -27,8 +29,7 @@ const PainelMunicipioDetalhes: React.FC = () => {
     try {
       await ColetaController.alterarStatus(id, 'Aguardando Data');
       presentAlert({
-        header: 'Pedido aceito!',
-        message: 'Acesse a lista para agendar a data de coleta.',
+        header: 'Pedido aceito!', message: 'Acesse a lista para agendar a data de coleta.',
         buttons: [{ text: 'Ok', handler: () => history.push('/municipio/lista', sessao) }],
       });
     } catch { presentAlert({ header: 'Erro', message: 'Não foi possível atualizar o pedido.', buttons: ['Ok'] }); }
@@ -36,8 +37,7 @@ const PainelMunicipioDetalhes: React.FC = () => {
 
   const recusar = () => {
     presentAlert({
-      header: 'Confirmar recusa',
-      message: 'Tem certeza que deseja recusar este pedido?',
+      header: 'Confirmar recusa', message: 'Tem certeza que deseja recusar este pedido?',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         { text: 'Recusar', handler: async () => {
@@ -46,6 +46,29 @@ const PainelMunicipioDetalhes: React.FC = () => {
             presentAlert({ header: 'Pedido recusado.', buttons: [{ text: 'Ok', handler: () => history.push('/municipio/lista', sessao) }] });
           } catch { presentAlert({ header: 'Erro', message: 'Não foi possível recusar.', buttons: ['Ok'] }); }
         }},
+      ],
+    });
+  };
+
+  const excluir = () => {
+    presentAlert({
+      header: '⚠️ Excluir requerimento',
+      message: 'Esta ação é permanente. O requerimento e a foto (se houver) serão apagados definitivamente.',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Excluir',
+          cssClass: 'alert-button-danger',
+          handler: async () => {
+            try {
+              await ColetaController.excluirColeta(id);
+              presentAlert({
+                header: 'Requerimento excluído.',
+                buttons: [{ text: 'Ok', handler: () => history.push('/municipio/lista', sessao) }],
+              });
+            } catch { presentAlert({ header: 'Erro', message: 'Não foi possível excluir.', buttons: ['Ok'] }); }
+          },
+        },
       ],
     });
   };
@@ -79,12 +102,12 @@ const PainelMunicipioDetalhes: React.FC = () => {
                   <span className={badgeStatus(pedido.status)}>{pedido.status}</span>
                 </div>
 
-                {/* Dados do cidadão */}
+                {/* Dados */}
                 {[
-                  { label: 'Nome', value: pedido.nome },
-                  { label: 'CPF', value: pedido.cpf },
-                  { label: 'Telefone', value: pedido.telefone },
-                  { label: 'E-mail', value: pedido.email },
+                  { label: 'Nome',          value: pedido.nome },
+                  { label: 'CPF',           value: pedido.cpf },
+                  { label: 'Telefone',      value: pedido.telefone },
+                  { label: 'E-mail',        value: pedido.email },
                   { label: 'Tipo de Lixo', value: pedido.tipoLixo },
                   { label: 'Data da Coleta', value: pedido.dataColeta || 'Aguardando agendamento' },
                 ].map(({ label, value }) => (
@@ -105,22 +128,36 @@ const PainelMunicipioDetalhes: React.FC = () => {
                   </div>
                 </div>
 
-                {/* MAPA — exibe se o cidadão marcou um ponto */}
-                {pedido.latitude && pedido.longitude ? (
-                  <div style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p className="req-item-label" style={{ marginBottom: 8 }}>Local no Mapa</p>
+                {/* FOTO DO LIXO */}
+                <div style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <p className="req-item-label" style={{ marginBottom: 8 }}>Foto do Lixo / Entulho</p>
+                  {pedido.fotoPath ? (
+                    <img
+                      src={`${API_URL}/uploads/${pedido.fotoPath}`}
+                      alt="Foto do lixo"
+                      style={{ width: '100%', maxHeight: 260, objectFit: 'cover', borderRadius: 10, border: '1px solid rgba(92,184,92,0.3)' }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  ) : (
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, margin: 0 }}>
+                      O cidadão não enviou foto.
+                    </p>
+                  )}
+                </div>
+
+                {/* MAPA */}
+                <div style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <p className="req-item-label" style={{ marginBottom: 8 }}>Local no Mapa</p>
+                  {pedido.latitude && pedido.longitude ? (
                     <MapaViewer latitude={pedido.latitude} longitude={pedido.longitude} altura={200} />
-                  </div>
-                ) : (
-                  <div style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <p className="req-item-label">Local no Mapa</p>
-                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 4 }}>
+                  ) : (
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, margin: 0 }}>
                       O cidadão não marcou um local no mapa. Use o endereço acima.
                     </p>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                {/* Ações: aceitar / recusar */}
+                {/* Aceitar / Recusar */}
                 {pedido.status === 'Em análise' && (
                   <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
                     <IonButton expand="block" style={{ flex: 1, '--background': '#5cb85c', '--color': '#fff', textTransform: 'none' }} onClick={aceitar}>
@@ -132,13 +169,22 @@ const PainelMunicipioDetalhes: React.FC = () => {
                   </div>
                 )}
 
-                <IonButton expand="block" className="btn-primary" onClick={() => history.push('/contato')}>
+                <IonButton expand="block" className="btn-primary" style={{ marginBottom: 10 }} onClick={() => history.push('/contato')}>
                   Entrar em Contato
                 </IonButton>
+
                 <IonButton expand="block" fill="outline"
-                  style={{ marginTop: 12, '--border-color': 'rgba(255,255,255,0.4)', '--color': '#fff', textTransform: 'none' }}
+                  style={{ marginBottom: 10, '--border-color': 'rgba(255,255,255,0.4)', '--color': '#fff', textTransform: 'none' }}
                   onClick={() => history.push('/municipio/lista', sessao)}>
                   Voltar
+                </IonButton>
+
+                {/* Botão Excluir — destrutivo, fica por último */}
+                <IonButton expand="block" fill="outline"
+                  style={{ '--border-color': '#eb445a', '--color': '#eb445a', textTransform: 'none' }}
+                  onClick={excluir}>
+                  <IonIcon icon={trashOutline} slot="start" />
+                  Excluir Requerimento
                 </IonButton>
               </>
             )}
